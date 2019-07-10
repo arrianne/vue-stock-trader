@@ -17,6 +17,10 @@ export default {
   // registering it as a local components as it only gets used here
     components: {
         appHeader: Header
+    },
+    created() {
+      // this is when our route instance here has finished initilising
+      this.$store.dispatch('initStocks')
     }
 }
 

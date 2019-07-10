@@ -6,6 +6,8 @@ import App from './App.vue'
 //importing the routes with the curly braces seen as it is a named export
 import { routes } from './routes'
 
+import store from './store/store.js'
+
 // this enables the vue-router
 Vue.use(VueRouter);
 
@@ -23,5 +25,6 @@ new Vue({
   el: '#app',
   // add the router to our vue instance
   router,
+  store,
   render: h => h(App)
 })
