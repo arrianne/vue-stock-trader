@@ -3,8 +3,8 @@
         <div class="panel panel-success">
             <div class="panel-heading">
                 <h3 class="panel-title">
-
-                    <small>(Price: PRICE)</small>
+                    {{ stock.name }}
+                    <small>(Price: {{ stock.price }} )</small>
                 </h3>
             </div>
             <div class="panel-body">
@@ -13,18 +13,23 @@
                             type="number"
                             class="form-control"
                             placeholder="Quantity"
-
-                    >
+                            >
                 </div>
                 <div class="pull-right">
                     <button
                             class="btn btn-success"
-
-                            
-                    >BUY
+                            >BUY
                     </button>
                 </div>
             </div>
         </div>
     </div>
 </template>
+
+<!-- I'll set up my props and props is at least stock because i'm getting the individual stock sent to this component. -->
+<script type="text/javascript">
+
+  export default {
+    props: ['stock']
+  }
+</script>
