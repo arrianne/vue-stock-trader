@@ -13,12 +13,16 @@
                             type="number"
                             class="form-control"
                             placeholder="Quantity"
-                            >
+                            key="inputQuantity"
+                            v-model.number="quantity"
+                    >
                 </div>
                 <div class="pull-right">
                     <button
                             class="btn btn-success"
-                            >BUY
+                            @click="buyStock"
+                            :disabled="quantity <= 0 || !Number.isInteger(quantity)"
+                    >Buy
                     </button>
                 </div>
             </div>
@@ -30,6 +34,23 @@
 <script type="text/javascript">
 
   export default {
-    props: ['stock']
+    props: ['stock'],
+    // want to bind the data i get back to my data object here
+    data() {
+      return {
+        quantity: 0
+      }
+    },
+    methods: {
+      buyStock() {
+        const order = {
+          stockId: this.stock.id,
+          stockPrice: this.stock.price,
+          quantity: this.quantity
+        };
+        console.log(order);
+        this.quantity = 0;
+      }
+    }
   }
 </script>
