@@ -21,8 +21,9 @@
                     <button
                             class="btn btn-success"
                             @click="buyStock"
-                            :disabled="quantity <= 0 || !Number.isInteger(quantity)"
-                    >Buy
+                            :disabled="insufficientFunds || quantity <= 0 || !Number.isInteger(quantity)"
+                            >
+                    {{ insufficientFunds ? 'Insufficient Funds' : 'Buy'}}
                     </button>
                 </div>
             </div>
@@ -31,27 +32,32 @@
 </template>
 
 <!-- I'll set up my props and props is at least stock because i'm getting the individual stock sent to this component. -->
-<script type="text/javascript">
-
-  export default {
-    props: ['stock'],
-    // want to bind the data i get back to my data object here
-    data() {
-      return {
-        quantity: 0
-      }
-    },
-    methods: {
-      buyStock() {
-        const order = {
-          stockId: this.stock.id,
-          stockPrice: this.stock.price,
-          quantity: this.quantity
-        };
-
-        this.$store.dispatch('buyStock', order);
-        this.quantity = 0;
-      }
+<script>
+    export default {
+        props: ['stock'],
+        data() {
+            return {
+                quantity: 0
+            }
+        },
+        computed: {
+            funds() {
+                return this.$store.getters.funds;
+            },
+            insufficientFunds() {
+                return this.quantity * this.stock.price > this.funds;
+            }
+        },
+        methods: {
+            buyStock() {
+                const order = {
+                    stockId: this.stock.id,
+                    stockPrice: this.stock.price,
+                    quantity: this.quantity
+                };
+                this.$store.dispatch('buyStock', order);
+                this.quantity = 0;
+            }
+        }
     }
-  }
 </script>
