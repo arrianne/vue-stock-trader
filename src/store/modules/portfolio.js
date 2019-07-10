@@ -11,7 +11,7 @@ const mutations = {
   // all mutations get the 'state' passed in
   // then i know i'll get an object as the second argument and i'll use destructuring to pull out the id, quantity and stockPrice
   //
-  'BUY_STOCK'(state, { stockId, quantity, stockPrice}) {
+  'BUY_STOCK'(state, {stockId, quantity, stockPrice}) {
     // I want to check if i do have this stocks in my stocks array
     // I'll check if i do have a record by accessing my state and then my stockst
     // and then executing find which takes a function as an argument where the element will be passed in automatically - will automatically loop through all my elements
@@ -19,7 +19,7 @@ const mutations = {
     // if record is set and i already do have that stock in my array
     if (record) {
       // i will take the record which was the stock found in my array and update the quantity to be the old quantity plus the new quantity
-      record.quantity += quantity
+      record.quantity += quantity;
     } else {
       // i want to take my stocks and push a new object on it - this object will have an id and quantity - so thats the data I want to store in this stocks array in my porfolio
         state.stocks.push({
@@ -34,21 +34,25 @@ const mutations = {
     // i will first find the stock id in my array
     const record = state.stocks.find(element => element.id == stockId);
     // I will check if my record quantity is great than the quantity of what i want to sell
-    if(record.quantity > quantity) {
-      record.quantity -= quantity;
+    if (record.quantity > quantity) {
+            record.quantity -= quantity;
       // if i try to sell more than i have, i want to remove it from the array
     } else {
       state.stocks.splice(state.stocks.indexOf(record), 1);
     }
     // update my funds
     state.funds += stockPrice * quantity;
-  }
+  },
+  'SET_PORTFOLIO' (state, portfolio) {
+        state.funds = portfolio.funds;
+        state.stocks = portfolio.stockPortfolio ? portfolio.stockPortfolio : [];
+    }
 };
 // my sell stock action which gets me my commit method and has an order
 const actions = {
-  sellStock({commit}, order) {
-    commit('SELL_STOCK', order);
-  }
+    sellStock({commit}, order) {
+        commit('SELL_STOCK', order);
+    }
 };
 
 
@@ -61,15 +65,15 @@ const getters = {
       // there i can use the stocks getter which i set up in the stocks module
       // Find - allows me to find an element where i check whether the element id matches my stock id.
       // stock refers to the stock recurrently in this map method whereas the element id refers to the element of this stocks array in my stocks module - so all the stocks, not just the one in my portfolio
-      const record = getters.stock.find(element => element.id == stock.id);
+      const record = getters.stocks.find(element => element.id == stock.id);
       return {
         id: stock.id,
         quantity: stock.quantity,
         name: record.name,
         price: record.price
       }
-    })
-  }
+    });
+  },
   funds (state) {
     return state.funds;
   }
