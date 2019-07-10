@@ -25,7 +25,7 @@ const actions = {
       commit('BUY_STOCK', order);
   },
   // we only call it when we initialise our stocks
-  
+
   // pulling in the stocks that I am importing from our new data stocks.js
   initStocks: ({commit}) => {
       commit('SET_STOCKS', stocks);
@@ -50,26 +50,3 @@ export default {
   actions,
   getters
 }
-
-
-//
-// const actions = {
-
-
-//     randomizeStocks: ({commit}) => {
-//         commit('RND_STOCKS');
-//     }
-// };
-//
-// const getters = {
-//     stocks: state => {
-//         return state.stocks;
-//     }
-// };
-//
-// export default {
-//     state,
-//     mutations,
-//     actions,
-//     getters
-// };
