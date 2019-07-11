@@ -1,6 +1,7 @@
 import Vue from 'vue'
 // i installed vue router with npm then added it below
-import VueRouter from'vue-router';
+import VueRouter from 'vue-router';
+import VueResource from 'vue-resource';
 import App from './App.vue'
 
 //importing the routes with the curly braces seen as it is a named export
@@ -10,6 +11,9 @@ import store from './store/store.js'
 
 // this enables the vue-router
 Vue.use(VueRouter);
+Vue.use(VueResource);
+
+Vue.http.options.root = 'https://vuejs-stock-trader-87d34.firebaseio.com/';
 
 Vue.filter('currency', (value) => {
   return '$' + value.toLocaleString();
