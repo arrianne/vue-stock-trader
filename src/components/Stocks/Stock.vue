@@ -15,6 +15,7 @@
                             placeholder="Quantity"
                             key="inputQuantity"
                             v-model.number="quantity"
+                            :class="{danger: insufficientFunds}"
                     >
                 </div>
                 <div class="pull-right">
@@ -30,6 +31,12 @@
         </div>
     </div>
 </template>
+
+<style scoped>
+  .danger {
+    border: 1px solid red;
+  }
+</style>
 
 <!-- I'll set up my props and props is at least stock because i'm getting the individual stock sent to this component. -->
 <script>

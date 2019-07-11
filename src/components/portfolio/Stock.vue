@@ -15,20 +15,28 @@
                             placeholder="Quantity"
                             key="inputQuantity"
                             v-model.number="quantity"
+                            :class="{danger: insufficientFunds}"
                     >
                 </div>
                 <div class="pull-right">
                     <button
                             class="btn btn-success"
                             @click="sellStock"
-                            :disabled="quantity <= 0 || !Number.isInteger(quantity)"
-                    >Sell
+                            :disabled="insufficientQuantity || quantity <= 0 || !Number.isInteger(quantity)"
+                    >{{ insufficientQuantity ? 'Not enough' : 'Sell'}}
                     </button>
                 </div>
             </div>
         </div>
     </div>
 </template>
+
+<style scoped>
+  .danger {
+    border: 1px solid red;
+  }
+</style>
+
 
 <!-- I'll set up my props and props is at least stock because i'm getting the individual stock sent to this component. -->
 <script>
@@ -41,6 +49,11 @@ import {mapActions} from 'vuex';
     data() {
       return {
         quantity: 0
+      }
+    },
+    computed: {
+      insufficientQuantity() {
+        return this.quantity > this.stock.quantity;
       }
     },
     methods: {

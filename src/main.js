@@ -11,6 +11,10 @@ import store from './store/store.js'
 // this enables the vue-router
 Vue.use(VueRouter);
 
+Vue.filter('currency', (value) => {
+  return '$' + value.toLocaleString();
+})
+
 
 // creating our router here
 // we pass an object where we configure our router.
